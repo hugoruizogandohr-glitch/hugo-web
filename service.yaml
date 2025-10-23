@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hugo-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hugo-web
+  template:
+    metadata:
+      labels:
+        app: hugo-web
+    spec:
+      containers:
+      - name: hugo-web
+        image: hrodocker2525/hugo-web:latest
+        ports:
+        - containerPort: 80
