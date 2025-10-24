@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webhugo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webhugo
+  template:
+    metadata:
+      labels:
+        app: webhugo
+    spec:
+      containers:
+      - name: webhugo
+        image: hrodocker2525/webhugo:latest
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webhugo-service
+spec:
+  type: NodePort
+  selector:
+    app: webhugo
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30001
